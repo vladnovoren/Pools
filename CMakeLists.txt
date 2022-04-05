@@ -5,7 +5,7 @@ project(Pools VERSION 1.0)
 add_compile_options(
   -fsanitize=address
   -g
-  -O3
+  -O2
 )
 
 add_link_options(

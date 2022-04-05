@@ -21,8 +21,6 @@ class Pool {
 
   bool IsValid() const;
 
-  size_t GetSize() const;
-
  public:
   static const size_t INVALID_POOL_TAG = std::numeric_limits<size_t>::max();
 

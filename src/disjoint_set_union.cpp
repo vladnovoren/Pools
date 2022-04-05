@@ -57,7 +57,19 @@ size_t DisjointSetUnion::FindDelegate(size_t elem_tag) {
     return INVALID_ELEM_TAG;
   }
 
-  return FindDelegateRecImpl(elem_tag);
+  size_t res_tag = elem_tag;
+  while (parents_[res_tag] != res_tag) {
+    res_tag = parents_[res_tag];
+  }
+
+  size_t old_parent = parents_[elem_tag];
+  while (old_parent != elem_tag) {
+    old_parent = parents_[elem_tag];
+    parents_[elem_tag] = res_tag;
+    elem_tag = old_parent;
+  }
+
+  return res_tag;
 }
 
 size_t DisjointSetUnion::GetSubtreeSize(const size_t elem_tag) {
@@ -70,12 +82,4 @@ size_t DisjointSetUnion::GetSubtreeSize(const size_t elem_tag) {
 
 bool DisjointSetUnion::IsTagValid(const size_t elem_tag) const {
   return elem_tag < SetsCnt();
-}
-
-size_t DisjointSetUnion::FindDelegateRecImpl(const size_t elem_tag) {
-  if (parents_[elem_tag] = elem_tag) {
-    return elem_tag;
-  }
-  parents_[elem_tag] = FindDelegateRecImpl(parents_[elem_tag]);
-  return parents_[elem_tag];
 }

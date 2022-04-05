@@ -69,7 +69,3 @@ size_t Pool::GetTag() const {
 bool Pool::IsValid() const {
   return is_valid_;
 }
-
-size_t Pool::GetSize() const {
-  return pools_set_.GetSubtreeSize(pools_set_.FindDelegate(tag_));
-}

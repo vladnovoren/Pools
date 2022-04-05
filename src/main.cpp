@@ -20,36 +20,30 @@ void TestSpeed() {
   }
 
   auto at_begin = std::chrono::steady_clock::now();
-
-  size_t max_size = 0;
   for (size_t i = 0; i < 8000000; ++i) {
     pools[i].Connect(pools[to_connect[i]]);
-    max_size = std::max(max_size, pools[i].GetSize());
   }
-
-  std::cout << max_size << '\n';
-
   auto at_end = std::chrono::steady_clock::now();
-  std::chrono::duration<double> dur = at_end - at_begin;
 
-  std::cout << "elapsed time: " << dur.count() << '\n';
+  std::chrono::duration<double> dur = at_end - at_begin;
+  std::cout << "connect time: " << dur.count() << '\n';
 }
 
 void TestPour1() {
   Pool pool1(10), pool2(20), pool3(30);
-  printf("%lf %lf %lf\n", pool1.Measure(), pool2.Measure(), pool3.Measure());
+  assert(pool1.Measure() == 10 && pool2.Measure() == 20 && pool3.Measure() == 30);
 
   pool1.Connect(pool2);
-  printf("%lf %lf %lf\n", pool1.Measure(), pool2.Measure(), pool3.Measure());
+  assert(pool1.Measure() == 15 && pool2.Measure() == 15 && pool3.Measure() == 30);
 
   pool2.AddWater(60);
-  printf("%lf %lf %lf\n", pool1.Measure(), pool2.Measure(), pool3.Measure());
+  assert(pool1.Measure() == 45 && pool2.Measure() == 45 && pool3.Measure() == 30);
 
   pool3.Connect(pool2);
-  printf("%lf %lf %lf\n", pool1.Measure(), pool2.Measure(), pool3.Measure());
+  assert(pool1.Measure() == 40 && pool2.Measure() == 40 && pool3.Measure() == 40);
 
   pool3.AddWater(30);
-  printf("%lf %lf %lf\n", pool1.Measure(), pool2.Measure(), pool3.Measure());
+  assert(pool1.Measure() == 50 && pool2.Measure() == 50 && pool3.Measure() == 50);
 }
 
 void TestPour2() {
@@ -63,17 +57,15 @@ void TestPour2() {
   for (size_t i = 1; i < 100; ++i) {
     pools[i].Connect(pools[i - 1]);
     if (2 * pools[i].Measure() != i) {
-      printf("test pour2 filed\n");
+      printf("test pour2 failed\n");
     }
   }
 }
 
 
 int main() {
-
   TestSpeed();
   TestPour1();
   TestPour2();
-
   return 0;
 }

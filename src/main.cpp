@@ -26,7 +26,7 @@ void TestSpeed() {
   auto at_end = std::chrono::steady_clock::now();
 
   std::chrono::duration<double> dur = at_end - at_begin;
-  std::cout << "connect time: " << dur.count() << '\n';
+  std::cout << "8000000 connections: " << dur.count() << "s" << '\n';
 }
 
 void TestPour1() {

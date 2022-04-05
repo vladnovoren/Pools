@@ -11,7 +11,7 @@ add_compile_options(
 add_link_options(
   -fsanitize=address
   -g
-  -O3
+  -O2
 )
 
 add_library(pool STATIC src/pool.cpp src/disjoint_set_union.cpp)

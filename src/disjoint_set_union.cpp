@@ -62,9 +62,8 @@ size_t DisjointSetUnion::FindDelegate(size_t elem_tag) {
     res_tag = parents_[res_tag];
   }
 
-  size_t old_parent = parents_[elem_tag];
-  while (old_parent != elem_tag) {
-    old_parent = parents_[elem_tag];
+  while (parents_[elem_tag] != elem_tag) {
+    size_t old_parent = parents_[elem_tag];
     parents_[elem_tag] = res_tag;
     elem_tag = old_parent;
   }

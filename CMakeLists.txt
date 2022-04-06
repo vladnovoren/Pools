@@ -6,6 +6,10 @@ add_compile_options(
   -fsanitize=address
   -g
   -O2
+
+  -Wall
+  -Wextra
+  -Werror
 )
 
 add_link_options(

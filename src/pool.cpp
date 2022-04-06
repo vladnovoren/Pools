@@ -37,9 +37,6 @@ void Pool::Connect(Pool& other) {
     return;
   }
 
-  size_t this_group_size = pools_set_.GetSubtreeSize(this_delegate_tag);
-  size_t other_group_size = pools_set_.GetSubtreeSize(other_delegate_tag);
-
   double this_group_volume = volumes_[this_delegate_tag];
   double other_group_volume = volumes_[other_delegate_tag];
 
@@ -56,7 +53,7 @@ bool Pool::Reserve(const size_t new_cap) {
   try {
     volumes_.reserve(new_cap);
   } catch (std::bad_alloc&) {
-    false;
+    return false;
   }
 
   return pools_set_.Reserve(new_cap);
